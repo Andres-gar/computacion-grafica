@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>2.1: The HTML5 Canvas Project</title>
+</head>
+
+<body>
+    <!-- Area canvas para dibujar con WebGL -->
+    <canvas id="GLCanvas" width="640" height="480">
+        Your browser does not support the HTML5 canvas.
+    </canvas>
+
+    <script type="text/javascript">
+        // Se establece union con el elemento canvas
+        var canvas = document.getElementById("GLCanvas");
+        // Se vincula la variable gl con el contexto WebGl
+        var gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+
+        if (gl !== null) {
+            gl.clearColor(0.0, 0.8, 0.0, 1.0); // setea el color a ser borrado
+            gl.clear(gl.COLOR_BUFFER_BIT); // limpiar colores
+        }
+    </script>
+</body>
+
+</html>
