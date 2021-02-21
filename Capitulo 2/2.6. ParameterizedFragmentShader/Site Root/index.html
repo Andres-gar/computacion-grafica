@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>2.4. JavaScript Objects </title>
+    <title>2.6. Parametized Fragment Shader </title>
 </head>
 
 <body onload="new MyGame('GLCanvas');">
@@ -11,22 +11,10 @@
         Your browser does not support the HTML5 canvas.
     </canvas>
 
-    <script type="x-shader/x-fragment" id="FragmentShader">
-        void main(void) {
-        gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
-        }
-    </script>
 
-    <script type="x-shader/x-vertex" id="VertexShader">
-        attribute vec3 aSquareVertexPosition;
-        void main(void) {
-        gl_Position = vec4(aSquareVertexPosition, 1.0);
-        }
-    </script>
 
-   
-    <script type="text/javascript" src="src/Engine/Engine_VertexBuffer.js"></script>
     <script type="text/javascript" src="src/Engine/Engine_Core.js"></script>
+    <script type="text/javascript" src="src/Engine/Engine_VertexBuffer.js"></script>
     <script type="text/javascript" src="src/Engine/SimpleShader.js"></script>
     <script type="text/javascript" src="src/MyGame/MyGame.js"></script>
 
