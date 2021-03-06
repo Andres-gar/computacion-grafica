@@ -48,21 +48,23 @@ MyGame.prototype.update = function () {
 
     // Step A: test for white square movement
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Right)) {
-        if (whiteXform.getXPos() > 30) // the right-bound of the window
-            whiteXform.setPosition(10, 60);
-        whiteXform.incXPosBy(deltaX);
+        if (xform.getXPos() > 30) { // this is the right-bound of the window
+            xform.setPosition(10, 60);
+        }
+        xform.incXPosBy(deltaX);
     }
 
-    // Step B: test for white square rotation
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Up))
-        whiteXform.incRotationByDegree(1);
+    // Step  B: test for white square rotation
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Up)) {
+        xform.incRotationByDegree(1);
+    }
 
-    // work with the red square ...
     xform = this.mSqSet[1].getXform();
-    // Step C: test for pulsing the red square
+    // Step  C: test for pulsing the red square
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Down)) {
-        if (redXform.getWidth() > 5)
-            redXform.setSize(2, 2);
-        redXform.incSizeBy(0.05);
+        if (xform.getWidth() > 5) {
+            xform.setSize(2, 2);
+        }
+        xform.incSizeBy(0.05);
     }
 };
