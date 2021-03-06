@@ -103,4 +103,47 @@ MyGame.prototype.update = function () {
             gEngine.GameLoop.stop();
         }
     }
+
+    // Test
+    var deltaXLeft = -0.05;
+    var deltaXRight = 0.05;
+    var deltaYUp = 0.05;
+    var deltaYDown = -0.05;
+
+    // Right - D
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.D)) {
+        if (xform.getXPos() > 30) // the right-bound of the window
+            xform.setPosition(10, xform.getYPos());
+        xform.incXPosBy(deltaXRight);
+    }
+
+    // Left - A
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A)) {
+        if (xform.getXPos() < 10) // the left-bound of the window
+            // xform.setPosition(30, xform.getYPos());
+            gEngine.GameLoop.stop();
+        xform.incXPosBy(deltaXLeft);
+    }
+
+    // Up - w
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.W)) {
+        if (xform.getYPos() > 65) // the up-bound of the window
+            xform.setPosition(xform.getXPos(), 55);
+        xform.incYPosBy(deltaYUp);
+    }
+
+    // Down - S
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.S)) {
+        if (xform.getYPos() < 55) // the down-bound of the window
+            xform.setPosition(xform.getXPos(), 65);
+        xform.incYPosBy(deltaYDown);
+    }
+
+    // Turn Left - Q
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Q))
+        xform.incRotationByDegree(1);
+
+    // Turn Right - E
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.E))
+        xform.incRotationByDegree(-1);
 };
