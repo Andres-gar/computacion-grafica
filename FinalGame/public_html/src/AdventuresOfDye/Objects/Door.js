@@ -2,7 +2,7 @@
 
 function Door(cx, cy, texture0, texture1, texture2, lightSet) {
     this.kWidth = 1.2;
-    this.kHeight = 3;
+    this.kHeight = 5;
     this.kSpeed = 0.05;
 
     // control of movement
@@ -55,39 +55,43 @@ Door.prototype.buildSprite = function (atX, atY) {
     this.mDoorTop.getXform().setPosition(atX, this.mTopInitialYPosition);
     this.mDoorTop.getXform().setSize(this.kWidth, this.kHeight);
     this.mDoorTop.getXform().setZPos(2);
-    this.mDoorTop.setElementPixelPositions(0, 64, 0, 128);
+    this.mDoorTop.setElementPixelPositions(0, 64, 0, 256);
 
     this.mBotInitialYPosition = atY - 1.3;
     this.mDoorBot.getXform().setPosition(atX, this.mBotInitialYPosition);
     this.mDoorBot.getXform().setSize(this.kWidth, this.kHeight);
     this.mDoorBot.getXform().setZPos(2);
-    this.mDoorBot.setElementPixelPositions(0, 64, 0, 128);
+    this.mDoorBot.setElementPixelPositions(0, 64, 0, 256);
 
-    this.mDoorTopSleeve.getXform().setPosition(atX, atY + 2.5);
-    this.mDoorTopSleeve.getXform().setSize(this.kWidth + 1, this.kHeight + 2);
+    this.mDoorTopSleeve.getXform().setPosition(atX, atY + 5.1);
+    this.mDoorTopSleeve.getXform().setSize(this.kWidth + 2, this.kHeight - 1);
     this.mDoorTopSleeve.getXform().setZPos(2);
-    this.mDoorTopSleeve.setElementPixelPositions(0, 128, 212, 512);
+    this.mDoorTopSleeve.setElementPixelPositions(0, 64, 185, 256);
 
-    this.mDoorBotSleeve.getXform().setPosition(atX, atY - 2.5);
-    this.mDoorBotSleeve.getXform().setSize(this.kWidth + 1, this.kHeight + 2);
+    this.mDoorBotSleeve.getXform().setPosition(atX, atY - 3.8);
+    this.mDoorBotSleeve.getXform().setSize(this.kWidth + 2, this.kHeight - 1);
     this.mDoorBotSleeve.getXform().setZPos(2);
-    this.mDoorBotSleeve.setElementPixelPositions(0, 128, 0, 300);
+    this.mDoorBotSleeve.setElementPixelPositions(0, 64, 0, 71);
 };
 
 Door.prototype._openDoor = function () {
     var topY = this.mDoorTop.getXform().getYPos();
     var botY = this.mDoorBot.getXform().getYPos();
+    var topSleeveY = this.mDoorTopSleeve.getXform().getYPos();
+    var botSleeveY = this.mDoorBotSleeve.getXform().getYPos();
 
     if (Math.abs(this.mTopInitialYPosition - topY) <= this.kHeight 
             || Math.abs(this.mBotInitialYPosition - botY) <= this.kHeight) {
         this.mDoorTop.getXform().setYPos(topY + 0.01);
-        this.mDoorTop.setElementPixelPositions(64, 128, 0, 128);
+        // this.mDoorTop.setElementPixelPositions(64, 128, 0, 128);
 
         this.mDoorBot.getXform().setYPos(botY - 0.01);
-        this.mDoorBot.setElementPixelPositions(64, 128, 0, 128);
+        // this.mDoorBot.setElementPixelPositions(64, 128, 0, 128);
 
-        this.mDoorTopSleeve.setElementPixelPositions(128, 256, 212, 512);
-        this.mDoorBotSleeve.setElementPixelPositions(128, 256, 0, 300);
+        this.mDoorTopSleeve.getXform().setYPos(topSleeveY + 0.01);
+        this.mDoorBotSleeve.getXform().setYPos(botSleeveY - 0.01);
+        // this.mDoorTopSleeve.setElementPixelPositions(128, 256, 212, 512);
+        // this.mDoorBotSleeve.setElementPixelPositions(128, 256, 0, 300);
     }
     
 

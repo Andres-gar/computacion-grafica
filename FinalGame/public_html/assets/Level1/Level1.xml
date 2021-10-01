@@ -14,15 +14,15 @@
             BgColor="0 0 1 1.0"
     />    
 
-    <Background PosX="0" PosY="0" Width="15" Height="15" ZPos="-5" ParallaxDepth="100" 
-                LightIndices="2 3 4 5"
+    <Background PosX="90" PosY="52.9" Width="40" Height="20" ZPos="-5" ParallaxDepth="100" 
+                LightIndices="2"
                 ReceiveShadow="false"
-                Texture="bg.png" NormalMap="hero_sprite2.png" />
+                Texture="bg2.png" NormalMap="bg_normal2.png" />
     
-    <Background PosX="0" PosY="0" Width="12" Height="12" ZPos="-1" ParallaxDepth="2" 
-                LightIndices="-1"
+    <Background PosX="0" PosY="14.2" Width="12" Height="24" ZPos="-1" ParallaxDepth="2" 
+                LightIndices="2 3 4 5"
                 ReceiveShadow="true"
-                Texture="bgLayer.png" NormalMap="bgLayer_normal.png" />
+                Texture="bgLayer2.png" NormalMap="bgLayer_normal2.png" />
               
               
     <!-- Platforms -->
@@ -31,6 +31,8 @@
     <Platform PosX="28" PosY="7.5" Velocity="1 0 0" MovementRange="3" />
     <Platform PosX="40" PosY="5" Velocity="0 1 0" MovementRange="5" />
     <Platform PosX="25" PosY="12.5" Velocity="0 0 0" MovementRange="2" />
+    <Platform PosX="-20" PosY="0" Velocity="0 0 0" MovementRange="0" />
+    <Platform PosX="-10" PosY="0" Velocity="0 0 0" MovementRange="0" />
     <Platform PosX="0" PosY="0" Velocity="0 0 0" MovementRange="0" />
     <Platform PosX="10" PosY="0" Velocity="0 0 0" MovementRange="0" />
     <Platform PosX="20" PosY="0" Velocity="0 0 0" MovementRange="0" />
@@ -39,15 +41,19 @@
     <Platform PosX="50" PosY="0" Velocity="0 0 0" MovementRange="0" />
     <Platform PosX="60" PosY="0" Velocity="0 0 0" MovementRange="0" />
     <Platform PosX="70" PosY="0" Velocity="0 0 0" MovementRange="0" />
+    <Platform PosX="80" PosY="0" Velocity="0 0 0" MovementRange="0" />
     <Platform PosX="60" PosY="7.5" Velocity="0 0 0" MovementRange="0" />
     <Platform PosX="50" PosY="12.5" Velocity="0 0 0" MovementRange="0" />
+
+    <!-- Boxes -->
+    <Box PosX="12" PosY="12" />
     
     <!-- Walls -->
-    <Wall PosX="-4" PosY="2.5" />
-    <Wall PosX="-4" PosY="7.5" />
-    <Wall PosX="-4" PosY="12.5" />
-    <Wall PosX="-4" PosY="17.5" />
-    <Wall PosX="-4" PosY="22.5" />
+    <Wall PosX="-5.6" PosY="2.5" />
+    <Wall PosX="-5.6" PosY="7.5" />
+    <Wall PosX="-5.6" PosY="12.5" />
+    <Wall PosX="-5.6" PosY="17.5" />
+    <Wall PosX="-5.6" PosY="22.5" />
     
     <Wall PosX="64" PosY="10" />
     <Wall PosX="64" PosY="15" />
@@ -63,10 +69,10 @@
     
      <!-- Minions -->
      <!-- minion type: 0=>shooter, 1->brain, 2=>beetle -->
-    <Minion PosX="30" PosY="14" Width="2" Height="1.6" Velocity="1 0 0" MovementRange="8" Type="0"/>
-    <Minion PosX="18" PosY="10" Width="2" Height="1.6" Velocity="0 1 0" MovementRange="2" Type="1"/>
-    <Minion PosX="55" PosY="10" Width="2" Height="1.6" Velocity="1 0 0" MovementRange="7" Type="0"/>
-    <Minion PosX="50" PosY="5" Width="2" Height="1.6" Velocity="0 1 0" MovementRange="3" Type="0"/>
+    <Minion PosX="30" PosY="14" Width="4" Height="3.2" Velocity="-1 0 0" MovementRange="8" Type="0"/>
+    <Minion PosX="17.5" PosY="8" Width="4" Height="3.2" Velocity="0 1 0" MovementRange="5" Type="1"/>
+    <Minion PosX="55" PosY="10" Width="4" Height="3.2" Velocity="-1 0 0" MovementRange="7" Type="0"/>
+    <Minion PosX="50" PosY="6" Width="4" Height="3.2" Velocity="0 1 0" MovementRange="3" Type="0"/>
     
     <!-- next level -->
     <NextLevel Next="Level2">

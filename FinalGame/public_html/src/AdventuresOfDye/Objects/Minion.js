@@ -9,7 +9,7 @@
 /*global gEngine, GameObject, LightRenderable, IllumRenderable, SpriteAnimateRenderable */
 /* find out more about jslint: http://www.jslint.com/help.html */
 
-"use strict";  // Operate in Strict mode such that variables must be declared before used!
+"use strict"; // Operate in Strict mode such that variables must be declared before used!
 
 Minion.eMinionType = Object.freeze({
     eDefault: 0,
@@ -22,6 +22,7 @@ function Minion(atX, atY, velocity, movementRange, type, texture, normal, lightS
     this.kWidth = w;
     this.kHeight = h;
     this.kSpeed = 0.03;
+    this.kVelocity = velocity;
 
     this.mProjectiles = new ParticleGameObjectSet();
     this.mType = type;
@@ -55,7 +56,7 @@ function Minion(atX, atY, velocity, movementRange, type, texture, normal, lightS
     }
 
     var rigidShape = new RigidRectangle(this.getXform(), this.kWidth, this.kHeight);
-    rigidShape.setMass(1);  // ensures no movements!
+    rigidShape.setMass(1); // ensures no movements!
     rigidShape.setDrawBounds(true);
     rigidShape.setColor([0, 0, 1, 1]);
     rigidShape.setAcceleration([0, 0]);
@@ -77,6 +78,9 @@ Minion.prototype.update = function () {
             var f = this.getCurrentFrontDir();
             f[0] = -f[0];
             f[1] = -f[1];
+            if (this.mType === Minion.eMinionType.eDefault && this.kVelocity.indexOf(-1) === 0) {
+                this.getXform().setSize(this.getXform().getSize()[0] * -1, this.kHeight);
+            }
         }
         this.light.set2DPosition(this.getXform().getPosition());
     }
@@ -95,12 +99,12 @@ Minion.prototype.changeSprite = function (atX, atY) {
 
     switch (this.mType) {
         case Minion.eMinionType.eDefault:
-            this.mMinion.setSpriteSequence(512, 0, 204, 164, 5, 0);
+            this.mMinion.setSpriteSequence(702, 132, 58, 65, 2, 0);
             this.mMinion.setAnimationType(SpriteAnimateRenderable.eAnimationType.eAnimateSwing);
-            this.mMinion.setAnimationSpeed(20);
+            this.mMinion.setAnimationSpeed(5);
             break;
         case Minion.eMinionType.eSentry:
-            this.mMinion.setSpriteSequence(164, 308, 204, 164, 1, 0);
+            this.mMinion.setSpriteSequence(579, 174, 74, 58, 1, 0);
             this.mMinion.setAnimationSpeed(1);
             break;
         case Minion.eMinionType.eChaser:
@@ -118,7 +122,7 @@ Minion.prototype._createPointLight = function (atX, atY) {
     lgt.setYPos(atY);
     lgt.setZPos(1);
     lgt.setNear(1);
-    lgt.setFar(2);
+    lgt.setFar(3);
     lgt.setIntensity(1);
     lgt.setDropOff(20);
     lgt.setLightCastShadowTo(true);

@@ -11,24 +11,25 @@
 
 function GameLevel_01(level) {
     this.kHeroSprite = "assets/hero_sprite2.png";
-    this.kMinionSprite = "assets/minion_sprite.png";
-    this.kPlatform = "assets/platform.png";
-    this.kPlatformNormal = "assets/platform_normal.png";
-    this.kWall = "assets/wall.png";
-    this.kWallNormal = "assets/wall_normal.png";
+    this.kMinionSprite = "assets/minion_sprite2.png";
+    this.kPlatform = "assets/platform2.png";
+    this.kPlatformNormal = "assets/platform_normal2.png";
+    this.kBox = "assets/box.png";
+    this.kWall = "assets/wall2.png";
+    this.kWallNormal = "assets/wall_normal2.png";
     this.kParticle = "assets/EMPPulse.png";
-    this.kDoorTop = "assets/DoorInterior_Top.png";
-    this.kDoorBot = "assets/DoorInterior_Bottom.png";
-    this.kDoorSleeve = "assets/DoorFrame_AnimSheet.png";
+    this.kDoorTop = "assets/wall2.png";
+    this.kDoorBot = "assets/wall2.png";
+    this.kDoorSleeve = "assets/Door2.png";
     this.kButton = "assets/DoorFrame_Button_180x100.png";
     this.kProjectileTexture = "assets/EMPPulse.png";
 
     // specifics to the level
     this.kLevelFile = "assets/" + level + "/" + level + ".xml";  // e.g., assets/Level1/Level1.xml
-    this.kBg = "assets/" + level + "/bg.png";
-    this.kBgNormal = "assets/" + level + "/bg_normal.png";
-    this.kBgLayer = "assets/" + level + "/bgLayer.png";
-    this.kBgLayerNormal = "assets/" + level + "/bgLayer_normal.png";
+    this.kBg = "assets/" + level + "/bg2.png";
+    this.kBgNormal = "assets/" + level + "/bg_normal2.png";
+    this.kBgLayer = "assets/" + level + "/bgLayer2.png";
+    this.kBgLayerNormal = "assets/" + level + "/bgLayer_normal2.png";
 
     this.kLevelFinishedPosition = 65;
     
@@ -55,6 +56,7 @@ function GameLevel_01(level) {
 
     this.mAllWalls = new GameObjectSet();
     this.mAllPlatforms = new GameObjectSet();
+    this.mAllBoxes = new GameObjectSet();
     this.mAllButtons = new GameObjectSet();
     this.mAllDoors = new GameObjectSet();
     this.mAllMinions = new GameObjectSet();
@@ -68,6 +70,7 @@ GameLevel_01.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kMinionSprite);
     gEngine.Textures.loadTexture(this.kPlatform);
     gEngine.Textures.loadTexture(this.kPlatformNormal);
+    gEngine.Textures.loadTexture(this.kBox);
     gEngine.Textures.loadTexture(this.kWall);
     gEngine.Textures.loadTexture(this.kWallNormal);
     gEngine.Textures.loadTexture(this.kParticle);
@@ -91,6 +94,7 @@ GameLevel_01.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kMinionSprite);
     gEngine.Textures.unloadTexture(this.kPlatform);
     gEngine.Textures.unloadTexture(this.kPlatformNormal);
+    gEngine.Textures.unloadTexture(this.kBox);
     gEngine.Textures.unloadTexture(this.kWall);
     gEngine.Textures.unloadTexture(this.kWallNormal);
     gEngine.Textures.unloadTexture(this.kParticle);
@@ -145,6 +149,11 @@ GameLevel_01.prototype.initialize = function () {
         this.mAllPlatforms.addToSet(p[i]);
     }
 
+    var bo = parser.parseBoxes(this.kBox, this.mGlobalLightSet);
+    for (i = 0; i < bo.length; i++) {
+        this.mAllBoxes.addToSet(bo[i]);
+    }
+
     var d = parser.parseDoors(this.kDoorTop, this.kDoorBot, this.kDoorSleeve, this.mGlobalLightSet);
     for (i = 0; i < d.length; i++) {
         this.mAllDoors.addToSet(d[i]);
@@ -163,7 +172,7 @@ GameLevel_01.prototype.initialize = function () {
     this.mNextLevel = parser.parseNextLevel();
 
 
-    // Add hero into the layer manager and as shadow caster
+    // Add hero into the layer manager and as shadodw caster
     // Hero should be added into Actor layer last
     // Hero can only be added as shadow caster after background is created
     gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, this.mIllumHero);
@@ -172,7 +181,7 @@ GameLevel_01.prototype.initialize = function () {
 
     this.mPeekCam = new Camera(
             vec2.fromValues(0, 0),
-            64,
+            32,
             [0, 0, 320, 180],
             2
             );
@@ -204,14 +213,14 @@ GameLevel_01.prototype.update = function () {
     gEngine.LayerManager.updateAllLayers();
 
     var xf = this.mIllumHero.getXform();
-    this.mCamera.setWCCenter(xf.getXPos(), 8);
+    this.mCamera.setWCCenter(xf.getXPos(), 8.5);
     var p = vec2.clone(xf.getPosition());
     //p[0] -= 8;
     this.mGlobalLightSet.getLightAt(this.mLgtIndex).set2DPosition(p);
 
 
     if (this.mShowPeek) {
-        this.mPeekCam.setWCCenter(p[0], p[1]);
+        this.mPeekCam.setWCCenter(p[0] + 8, 8);
         this.mPeekCam.update();
     }
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.P)) {
@@ -231,6 +240,15 @@ GameLevel_01.prototype.update = function () {
     for (i = 0; i < this.mAllPlatforms.size(); i++) {
         var platBox = this.mAllPlatforms.getObjectAt(i).getPhysicsComponent();
         collided = this.mIllumHero.getJumpBox().collided(platBox, collisionInfo);
+        if (collided) {
+            this.mIllumHero.canJump(true);
+            break;
+        }
+    }
+
+    for (i = 0; i < this.mAllBoxes.size(); i++) {
+        var box = this.mAllBoxes.getObjectAt(i).getPhysicsComponent();
+        collided = this.mIllumHero.getJumpBox().collided(box, collisionInfo);
         if (collided) {
             this.mIllumHero.canJump(true);
             break;
@@ -287,7 +305,6 @@ GameLevel_01.prototype.update = function () {
         gEngine.GameLoop.stop();
     }
 
-
 };
 
 GameLevel_01.prototype._physicsSimulation = function () {
@@ -296,10 +313,12 @@ GameLevel_01.prototype._physicsSimulation = function () {
     gEngine.Physics.processObjSet(this.mIllumHero, this.mAllPlatforms);
     gEngine.Physics.processObjSet(this.mIllumHero, this.mAllWalls);
     gEngine.Physics.processObjSet(this.mIllumHero, this.mAllDoors);
-
+    gEngine.Physics.processObjSet(this.mIllumHero, this.mAllBoxes);
 
     // Minion platform
     gEngine.Physics.processSetSet(this.mAllMinions, this.mAllPlatforms);
 
+    // Box platform
+    gEngine.Physics.processSetSet(this.mAllBoxes, this.mAllPlatforms);
 };
 

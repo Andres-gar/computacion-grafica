@@ -11,7 +11,7 @@
 
 function Platform(cx, cy, velocity, movementRange, texture, normal, lightSet) {
     this.kPlatformWidth = 10;
-    this.kPlatformHeight = this.kPlatformWidth / 12;
+    this.kPlatformHeight = this.kPlatformWidth / 7;
     this.kSpeed = 0.05;
     
     // control of movement
@@ -34,7 +34,7 @@ function Platform(cx, cy, velocity, movementRange, texture, normal, lightSet) {
         this.setSpeed(this.kSpeed);
     }
     
-    var rigidShape = new RigidRectangle(this.getXform(), this.kPlatformWidth, this.kPlatformHeight);
+    var rigidShape = new RigidRectangle(this.getXform(), this.kPlatformWidth, this.kPlatformHeight - 0.5);
     rigidShape.setMass(0);  // ensures no movements!
     rigidShape.setDrawBounds(true);
     rigidShape.setColor([0, 0, 1, 1]);

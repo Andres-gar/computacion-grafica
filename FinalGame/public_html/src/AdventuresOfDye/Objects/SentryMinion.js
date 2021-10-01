@@ -41,7 +41,7 @@ SentryMinion.prototype._createSpotLight = function (atX, atY, velocity) {
     lgt.setFar(20);
     lgt.setInner(0.1);
     lgt.setOuter(0.2);
-    lgt.setIntensity(15);
+    lgt.setIntensity(2);
     lgt.setDropOff(2);
     lgt.setLightCastShadowTo(true);
     return lgt;
