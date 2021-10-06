@@ -15,7 +15,7 @@ function Box(cx, cy, texture, lightSet) {
 
     var renderableObj = new LightRenderable(texture);
     var i;
-    for (i=0; i<lightSet.numLights(); i++) {
+    for (i=1; i<lightSet.numLights(); i++) {
         renderableObj.addLight(lightSet.getLightAt(i));
     }
     GameObject.call(this, renderableObj);

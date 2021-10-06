@@ -175,6 +175,24 @@ SceneFileParser.prototype.parseBoss = function (texture0, texture1, texture2,
     return b;
 };
 
+SceneFileParser.prototype.parseWeapons = function (texture, lightSet) {
+    var elm = this._getElm("Weapon");
+    var i, x, y, we;
+    var AllWeapons = [];
+    for (i = 0; i < elm.length; i++) {
+        x = Number(elm.item(i).attributes.getNamedItem("PosX").value);
+        y = Number(elm.item(i).attributes.getNamedItem("PosY").value);
+
+        we = new Weapon(x, y, texture, lightSet);
+        gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, we);
+        gEngine.LayerManager.addAsShadowCaster(we);
+
+        AllWeapons.push(we);
+    }
+
+    return AllWeapons;
+};
+
 SceneFileParser.prototype.parseBoxes = function (texture, lightSet) {
     var elm = this._getElm("Box");
     var i, x, y, bo;

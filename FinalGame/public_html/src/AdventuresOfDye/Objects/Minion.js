@@ -41,7 +41,7 @@ function Minion(atX, atY, velocity, movementRange, type, texture, normal, lightS
     lightSet.addToSet(this.light);
 
     var i;
-    for (i = 2; i < lightSet.numLights(); i++) {
+    for (i = 4; i < lightSet.numLights(); i++) {
         this.mMinion.addLight(lightSet.getLightAt(i));
     }
 
@@ -95,7 +95,7 @@ Minion.prototype.changeSprite = function (atX, atY) {
     this.mMinion.setColor([1, 1, 1, 0]);
     this.mMinion.getXform().setPosition(atX, atY);
     this.mMinion.getXform().setSize(this.kWidth, this.kHeight);
-    this.mMinion.getXform().setZPos(2);
+    this.mMinion.getXform().setZPos(5);
 
     switch (this.mType) {
         case Minion.eMinionType.eDefault:

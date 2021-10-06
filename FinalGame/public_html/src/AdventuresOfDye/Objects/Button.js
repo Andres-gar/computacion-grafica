@@ -6,7 +6,7 @@ function Button(cx, cy, texture, type, lightSet) {
     this.mButton = new LightRenderable(texture);
 
     var i;
-    for (i = 2; i < lightSet.numLights(); i++) {
+    for (i = 1; i < lightSet.numLights(); i++) {
         this.mButton.addLight(lightSet.getLightAt(i));
     }
 

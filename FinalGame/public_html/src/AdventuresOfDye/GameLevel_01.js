@@ -14,6 +14,7 @@ function GameLevel_01(level) {
     this.kMinionSprite = "assets/minion_sprite2.png";
     this.kPlatform = "assets/platform2.png";
     this.kPlatformNormal = "assets/platform_normal2.png";
+    this.kWeapon = "assets/weapon.png";
     this.kBox = "assets/box.png";
     this.kWall = "assets/wall2.png";
     this.kWallNormal = "assets/wall_normal2.png";
@@ -21,7 +22,7 @@ function GameLevel_01(level) {
     this.kDoorTop = "assets/wall2.png";
     this.kDoorBot = "assets/wall2.png";
     this.kDoorSleeve = "assets/Door2.png";
-    this.kButton = "assets/DoorFrame_Button_180x100.png";
+    // this.kButton = "assets/DoorFrame_Button_180x100.png";
     this.kProjectileTexture = "assets/EMPPulse.png";
 
     // specifics to the level
@@ -56,6 +57,7 @@ function GameLevel_01(level) {
 
     this.mAllWalls = new GameObjectSet();
     this.mAllPlatforms = new GameObjectSet();
+    this.mAllWeapons = new GameObjectSet();
     this.mAllBoxes = new GameObjectSet();
     this.mAllButtons = new GameObjectSet();
     this.mAllDoors = new GameObjectSet();
@@ -70,6 +72,7 @@ GameLevel_01.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kMinionSprite);
     gEngine.Textures.loadTexture(this.kPlatform);
     gEngine.Textures.loadTexture(this.kPlatformNormal);
+    gEngine.Textures.loadTexture(this.kWeapon);
     gEngine.Textures.loadTexture(this.kBox);
     gEngine.Textures.loadTexture(this.kWall);
     gEngine.Textures.loadTexture(this.kWallNormal);
@@ -77,7 +80,7 @@ GameLevel_01.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kDoorTop);
     gEngine.Textures.loadTexture(this.kDoorBot);
     gEngine.Textures.loadTexture(this.kDoorSleeve);
-    gEngine.Textures.loadTexture(this.kButton);
+    // gEngine.Textures.loadTexture(this.kButton);
     gEngine.Textures.loadTexture(this.kProjectileTexture);
 
     gEngine.Textures.loadTexture(this.kBg);
@@ -92,6 +95,7 @@ GameLevel_01.prototype.unloadScene = function () {
     gEngine.TextFileLoader.unloadTextFile(this.kLevelFile);
     gEngine.Textures.unloadTexture(this.kHeroSprite);
     gEngine.Textures.unloadTexture(this.kMinionSprite);
+    gEngine.Textures.unloadTexture(this.kWeapon);
     gEngine.Textures.unloadTexture(this.kPlatform);
     gEngine.Textures.unloadTexture(this.kPlatformNormal);
     gEngine.Textures.unloadTexture(this.kBox);
@@ -101,7 +105,7 @@ GameLevel_01.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kDoorTop);
     gEngine.Textures.unloadTexture(this.kDoorBot);
     gEngine.Textures.unloadTexture(this.kDoorSleeve);
-    gEngine.Textures.unloadTexture(this.kButton);
+    // gEngine.Textures.unloadTexture(this.kButton);
     gEngine.Textures.unloadTexture(this.kProjectileTexture);
 
     gEngine.Textures.unloadTexture(this.kBg);
@@ -131,8 +135,18 @@ GameLevel_01.prototype.initialize = function () {
     this.mCamera = parser.parseCamera();
     this.mGlobalLightSet = parser.parseLights();
 
-    var m = parser.parseMinions(this.kMinionSprite, null, this.mGlobalLightSet);
+    var we = parser.parseWeapons(this.kWeapon, this.mGlobalLightSet);
     var i;
+    for (i = 0; i < we.length; i++) {
+        this.mAllWeapons.addToSet(we[i]);
+    }
+
+    var bo = parser.parseBoxes(this.kBox, this.mGlobalLightSet);
+    for (i = 0; i < bo.length; i++) {
+        this.mAllBoxes.addToSet(bo[i]);
+    }
+
+    var m = parser.parseMinions(this.kMinionSprite, null, this.mGlobalLightSet);
     for (i = 0; i < m.length; i++) {
         this.mAllMinions.addToSet(m[i]);
     }
@@ -149,25 +163,20 @@ GameLevel_01.prototype.initialize = function () {
         this.mAllPlatforms.addToSet(p[i]);
     }
 
-    var bo = parser.parseBoxes(this.kBox, this.mGlobalLightSet);
-    for (i = 0; i < bo.length; i++) {
-        this.mAllBoxes.addToSet(bo[i]);
-    }
-
     var d = parser.parseDoors(this.kDoorTop, this.kDoorBot, this.kDoorSleeve, this.mGlobalLightSet);
     for (i = 0; i < d.length; i++) {
         this.mAllDoors.addToSet(d[i]);
     }
 
-    var b = parser.parseButtons(this.kButton, this.mGlobalLightSet);
-    for (i = 0; i < b.length; i++) {
-        this.mAllButtons.addToSet(b[i]);
-    }
+    // var b = parser.parseButtons(this.kButton, this.mGlobalLightSet);
+    // for (i = 0; i < b.length; i++) {
+    //     this.mAllButtons.addToSet(b[i]);
+    // }
 
     // parsing of actors can only begin after background has been parsed
     // to ensure proper support shadow
     // for now here is the hero
-    this.mIllumHero = new Hero(this.kHeroSprite, null, 1, 1, this.mGlobalLightSet);
+    this.mIllumHero = new Hero(this.kHeroSprite, null, 25, 1, this.mGlobalLightSet);
 
     this.mNextLevel = parser.parseNextLevel();
 
@@ -320,5 +329,8 @@ GameLevel_01.prototype._physicsSimulation = function () {
 
     // Box platform
     gEngine.Physics.processSetSet(this.mAllBoxes, this.mAllPlatforms);
+
+    // Box box
+    gEngine.Physics.processSetSet(this.mAllBoxes, this.mAllBoxes);
 };
 
