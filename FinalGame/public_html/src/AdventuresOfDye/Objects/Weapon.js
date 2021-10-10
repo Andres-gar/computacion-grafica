@@ -12,6 +12,8 @@
 function Weapon(cx, cy, texture, lightSet) {
     this.kWeaponWidth = 2.5;
     this.kWeaponHeight = 1.5;
+    this.mIsUnlocked = false;
+    this.tickInterval = 0;
     this.mWeapon = new LightRenderable(texture);
 
     var i;
@@ -35,4 +37,21 @@ Weapon.prototype.buildSprite = function (atX, atY) {
     this.mWeapon.getXform().setSize(this.kWeaponWidth, this.kWeaponHeight);
     this.mWeapon.getXform().setZPos(2);
     this.mWeapon.setElementPixelPositions(0, 538, 191, 512);
+};
+
+Weapon.prototype.pressWeapon = function () {
+    this.mIsUnlocked = true;
+};
+
+Weapon.prototype.getWeaponState = function () {
+    return this.mIsUnlocked;
+};
+
+Weapon.prototype.getTickInterval = function (int) {
+    if (this.tickInterval < int) {
+        this.tickInterval++;
+        return false;
+    } else {
+        return true;
+    }
 };

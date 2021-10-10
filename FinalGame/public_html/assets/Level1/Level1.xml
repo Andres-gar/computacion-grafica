@@ -30,10 +30,10 @@
     <Platform PosX="40" PosY="6" Velocity="0 1 0" MovementRange="4" />
     <!-- Floating -->
     <Platform PosX="0" PosY="12.5" Velocity="0 0 0" MovementRange="0" />
-    <Platform PosX="10" PosY="5" Velocity="0 0 0" MovementRange="0" />
+    <Platform PosX="10" PosY="4.5" Velocity="0 0 0" MovementRange="0" />
     <Platform PosX="20" PosY="12.5" Velocity="0 0 0" MovementRange="0" />
     <Platform PosX="30" PosY="12.5" Velocity="0 0 0" MovementRange="0" />
-    <Platform PosX="50" PosY="5" Velocity="0 0 0" MovementRange="0" />
+    <Platform PosX="50" PosY="4.5" Velocity="0 0 0" MovementRange="0" />
     <Platform PosX="60" PosY="12.5" Velocity="0 0 0" MovementRange="0" />
     <!-- Floor -->
     <Platform PosX="-20" PosY="0" Velocity="0 0 0" MovementRange="0" />
@@ -49,11 +49,11 @@
     <Platform PosX="80" PosY="0" Velocity="0 0 0" MovementRange="0" />
 
     <!-- Weapons -->
-    <Weapon PosX="33" PosY="2" />
+    <Weapon PosX="0" PosY="15" />
 
     <!-- Boxes -->
     <Box PosX="20" PosY="13" />
-    <Box PosX="30" PosYa="13" />
+    <Box PosX="30" PosY="13" />
     <Box PosX="60" PosY="13" />
     
     <!-- Walls -->
@@ -62,20 +62,23 @@
     <Wall PosX="-5.6" PosY="12.5" />
     <Wall PosX="-5.6" PosY="17.5" />
     <Wall PosX="-5.6" PosY="22.5" />
-    
+
     <Wall PosX="65.6" PosY="10" />
     <Wall PosX="65.6" PosY="15" />
     <Wall PosX="65.6" PosY="20" />
+
+    <Wall PosX="75" PosY="5" />
+    <Wall PosX="75" PosY="0" />
     
     <!-- Doors -->
-    <Door PosX="65.6" PosY="3" />
+    <Door PosX="75" PosY="11.2" />
     
      <!-- Minions -->
      <!-- minion type: 0=>shooter, 1->brain, 2=>beetle -->
-    <Minion PosX="20" PosY="6.5" Width="4" Height="3.2" Velocity="0 1 0" MovementRange="3.7" Type="1"/>
-    <Minion PosX="60" PosY="6.5" Width="4" Height="3.2" Velocity="0 1 0" MovementRange="3.7" Type="0"/>
-    <Minion PosX="25" PosY="14" Width="4" Height="3.2" Velocity="-1 0 0" MovementRange="8" Type="0"/>
-    <Minion PosX="55" PosY="14" Width="4" Height="3.2" Velocity="-1 0 0" MovementRange="7" Type="0"/>
+    <Minion PosX="20" PosY="6.5" Width="3.5" Height="2.8" Velocity="0 1 0" MovementRange="3.7" Type="1"/>
+    <Minion PosX="60" PosY="6.5" Width="3.5" Height="2.8" Velocity="0 1 0" MovementRange="3.7" Type="0"/>
+    <Minion PosX="25" PosY="14" Width="3.5" Height="2.8" Velocity="-1 0 0" MovementRange="8" Type="0"/>
+    <Minion PosX="55" PosY="14" Width="3.5" Height="2.8" Velocity="-1 0 0" MovementRange="7" Type="0"/>
     
     <!-- next level -->
     <NextLevel Next="Level2">
@@ -124,7 +127,7 @@
             Inner="5"
             Outter="10"
             DropOff="1"
-            Intensity="2" 
+            Intensity="1" 
             CastShadow="true" 
         />
 </MyGameLevel>

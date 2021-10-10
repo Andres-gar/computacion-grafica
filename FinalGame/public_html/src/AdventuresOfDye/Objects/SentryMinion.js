@@ -3,10 +3,11 @@
 function SentryMinion(atX, atY, velocity, movementRange, type, texture, normal, lightSet, w, h) {
     this.kOffset = 4.7;
     this.kShootTimer = 90;
+    this.lightSetSentry = lightSet;
 
     this.mNumCycles = 0;
     this.mSpotlight = this._createSpotLight(atX, atY, velocity);
-    lightSet.addToSet(this.mSpotlight);
+    this.lightSetSentry.addToSet(this.mSpotlight);
     Minion.call(this, atX, atY, velocity, movementRange, type, texture, normal, lightSet, w, h);
 
 }
@@ -16,16 +17,20 @@ SentryMinion.prototype.update = function () {
     Minion.prototype.update.call(this);
     var b;
     this.mNumCycles++;
-    if(this.mNumCycles > this.kShootTimer){
+    if (this.mNumCycles > this.kShootTimer) {
         this.mNumCycles = 0;
         b = new Projectile(this.getXform().getXPos() - 0.5, this.getXform().getYPos(), [-1, 0], 0.75);
         this.mProjectiles.addToSet(b);
     }
-        
+
     var p = [0, 0];
     p[0] = this.getXform().getXPos() + this.kOffset;
     p[1] = this.getXform().getYPos();
     this.mSpotlight.set2DPosition(p);
+    if (this.mVisible === false) {
+        var index = this.lightSetSentry.mSet.indexOf(this.mSpotlight);
+        this.lightSetSentry.mSet[index].setLightTo(false);
+    }
 };
 
 
@@ -46,8 +51,3 @@ SentryMinion.prototype._createSpotLight = function (atX, atY, velocity) {
     lgt.setLightCastShadowTo(true);
     return lgt;
 };
-
-
-
-
-

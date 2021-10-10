@@ -116,7 +116,7 @@ gEngine.Physics = (function () {
         var newRestituion = Math.min(s1.getRestitution(), s2.getRestitution());
         // Calc impulse scalar
         var j = -(1 + newRestituion) * rVelocityInNormal;
-        j = j / (s1.getInvMass() + s2.getInvMass());
+        j = j / (s1.getInvMass());
 
         var impulse = [0, 0];
         vec2.scale(impulse, collisionInfo.getNormal(), j);
@@ -124,6 +124,7 @@ gEngine.Physics = (function () {
         var newImpulse = [0, 0];
         vec2.scale(newImpulse, impulse, s1.getInvMass());
         vec2.sub(s1V, s1V, newImpulse);
+        // console.log(s2V);
 
         vec2.scale(newImpulse, impulse, s2.getInvMass());
         vec2.add(s2V, s2V, newImpulse);

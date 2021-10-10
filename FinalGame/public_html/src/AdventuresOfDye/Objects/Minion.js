@@ -25,6 +25,7 @@ function Minion(atX, atY, velocity, movementRange, type, texture, normal, lightS
     this.kVelocity = velocity;
 
     this.mProjectiles = new ParticleGameObjectSet();
+    this.lightSet = lightSet;
     this.mType = type;
 
     // control of movement
@@ -38,11 +39,11 @@ function Minion(atX, atY, velocity, movementRange, type, texture, normal, lightS
     }
 
     this.light = this._createPointLight(atX, atY);
-    lightSet.addToSet(this.light);
+    this.lightSet.addToSet(this.light);
 
     var i;
     for (i = 4; i < lightSet.numLights(); i++) {
-        this.mMinion.addLight(lightSet.getLightAt(i));
+        this.mMinion.addLight(this.lightSet.getLightAt(i));
     }
 
     this.changeSprite(atX, atY);
@@ -82,13 +83,15 @@ Minion.prototype.update = function () {
                 this.getXform().setSize(this.getXform().getSize()[0] * -1, this.kHeight);
             }
         }
-        this.light.set2DPosition(this.getXform().getPosition());
     }
+    this.light.set2DPosition(this.getXform().getPosition());
 };
 
 Minion.prototype.draw = function (aCamera) {
-    GameObject.prototype.draw.call(this, aCamera);
-    this.mProjectiles.draw(aCamera);
+    if (this.mVisible === true) {
+        GameObject.prototype.draw.call(this, aCamera);
+        this.mProjectiles.draw(aCamera);
+    }
 };
 
 Minion.prototype.changeSprite = function (atX, atY) {
@@ -108,8 +111,8 @@ Minion.prototype.changeSprite = function (atX, atY) {
             this.mMinion.setAnimationSpeed(1);
             break;
         case Minion.eMinionType.eChaser:
-            this.mMinion.setSpriteSequence(164, 608, 90, 164, 1, 0);
-            this.mMinion.setAnimationSpeed(1);
+            this.mMinion.setSpriteSequence(295, 90, 41, 60, 1, 0);
+            this.mMinion.setAnimationSpeed(5);
             break;
     }
 };
@@ -131,4 +134,12 @@ Minion.prototype._createPointLight = function (atX, atY) {
 
 Minion.prototype.getProjectiles = function () {
     return this.mProjectiles
+};
+
+Minion.prototype.remove = function () {
+    this.mVisible = false;
+    var index = this.lightSet.mSet.indexOf(this.light);
+    this.lightSet.mSet[index].setLightTo(false);
+    this.lightSet.mSet.splice(index, 1);
+    // console.log(this.lightSet)
 };

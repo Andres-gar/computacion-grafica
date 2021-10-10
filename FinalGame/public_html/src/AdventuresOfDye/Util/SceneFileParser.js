@@ -150,8 +150,8 @@ SceneFileParser.prototype.parseMinions = function (texture, normal, lightSet) {
     return allMinions;
 };
 
-SceneFileParser.prototype.parseBoss = function (texture0, texture1, texture2,
-        texture3, texture4, texture5, texture6, normal, lightSet, hero) {
+// texture0, texture1, texture2, texture3, texture4, texture5, texture6
+SceneFileParser.prototype.parseBoss = function (texture, normal, lightSet, hero) {
     var elm = this._getElm("Boss");
     var i, j, x, y, v, r, t, b;
 
@@ -165,8 +165,7 @@ SceneFileParser.prototype.parseBoss = function (texture0, texture1, texture2,
         // make sure color array contains numbers
         this._convertToNum(v);
 
-        b = new Boss(x, y, v, r, t, texture0, texture1, texture2,
-                texture3, texture4, texture5, texture6, normal, lightSet, hero);
+        b = new Boss(x, y, v, r, t, texture, normal, lightSet, hero);
 
         gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, b);
         gEngine.LayerManager.addAsShadowCaster(b);
@@ -191,6 +190,42 @@ SceneFileParser.prototype.parseWeapons = function (texture, lightSet) {
     }
 
     return AllWeapons;
+};
+
+SceneFileParser.prototype.parseHealthsHero = function (texture, lightSet) {
+    // var elm = this._getElm("HealthHero");
+    var i, x, y, hh;
+    var AllHealthsHero = [];
+    for (i = 0; i < 3; i++) {
+        // x = Number(elm.item(i).attributes.getNamedItem("PosX").value);
+        // y = Number(elm.item(i).attributes.getNamedItem("PosY").value);
+
+        hh = new Health(texture, lightSet);
+        gEngine.LayerManager.addToLayer(gEngine.eLayer.eHUD, hh);
+        gEngine.LayerManager.addAsShadowCaster(hh);
+
+        AllHealthsHero.push(hh);
+    }
+
+    return AllHealthsHero;
+};
+
+SceneFileParser.prototype.parseHealthsBoss = function (texture, lightSet) {
+    // var elm = this._getElm("HealthHero");
+    var i, x, y, hb;
+    var AllHealthsBoss = [];
+    for (i = 0; i < 10; i++) {
+        // x = Number(elm.item(i).attributes.getNamedItem("PosX").value);
+        // y = Number(elm.item(i).attributes.getNamedItem("PosY").value);
+
+        hb = new Health(texture, lightSet);
+        gEngine.LayerManager.addToLayer(gEngine.eLayer.eHUD, hb);
+        gEngine.LayerManager.addAsShadowCaster(hb);
+
+        AllHealthsBoss.push(hb);
+    }
+
+    return AllHealthsBoss;
 };
 
 SceneFileParser.prototype.parseBoxes = function (texture, lightSet) {

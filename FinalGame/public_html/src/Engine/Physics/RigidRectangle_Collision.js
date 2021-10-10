@@ -37,9 +37,9 @@ RigidRectangle.prototype.collidedRectRect = function(r1, r2, collisionInfo) {
     var vFrom1to2 = vec2.fromValues(0, 0);
     vec2.sub(vFrom1to2, r2.getPosition(), r1.getPosition());
     var xDepth = (r1.getWidth() / 2) + (r2.getWidth() / 2) - Math.abs(vFrom1to2[0]);
-    if (xDepth > 0) {
+    if (xDepth >= 0) {
         var yDepth = (r1.getHeight() / 2) + (r2.getHeight() / 2) - Math.abs(vFrom1to2[1]);
-        if (yDepth > 0)  {
+        if (yDepth >= 0)  {
             //axis of least penetration
             if (xDepth < yDepth) {
                 if (vFrom1to2[0] < 0) {
@@ -48,6 +48,7 @@ RigidRectangle.prototype.collidedRectRect = function(r1, r2, collisionInfo) {
                     collisionInfo.setNormal([1, 0]);
                 }
                 collisionInfo.setDepth(xDepth);
+                return 'x';
             } else {
                 if (vFrom1to2[1] < 0) {
                     collisionInfo.setNormal([0, -1]);
@@ -55,11 +56,11 @@ RigidRectangle.prototype.collidedRectRect = function(r1, r2, collisionInfo) {
                     collisionInfo.setNormal([0, 1]);
                 }
                 collisionInfo.setDepth(yDepth);
+                return 'y';
             }
-            return true;
         }
     }
-    return false;
+    return 'ninguno';
 };
 
 /**
@@ -80,5 +81,26 @@ RigidRectangle.prototype.collided = function(otherShape, collisionInfo) {
             status = this.collidedRectRect(this, otherShape, collisionInfo);
             break;
     }
+
+    if (status === 'x' || status === 'y') {
+        status = true;
+    } else {
+        status = false;
+    }
+    return status;
+};
+
+RigidRectangle.prototype.collidedAxis = function(otherShape, collisionInfo) {
+    var status = 'ninguno';
+    collisionInfo.setDepth(0);
+    switch (otherShape.rigidType()) {
+        case RigidShape.eRigidType.eRigidCircle:
+            status = this.collidedRectCirc(this, otherShape, collisionInfo);
+            break;
+        case RigidShape.eRigidType.eRigidRectangle:
+            status = this.collidedRectRect(this, otherShape, collisionInfo);
+            break;
+    }
+
     return status;
 };
