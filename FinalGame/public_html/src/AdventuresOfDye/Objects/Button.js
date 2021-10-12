@@ -15,7 +15,7 @@ function Button(cx, cy, texture, type, lightSet) {
 
     var rigidShape = new RigidRectangle(this.getXform(), this.kWidth, this.kHeight);
     rigidShape.setMass(0);  // ensures no movements!
-    rigidShape.setDrawBounds(true);
+    rigidShape.setDrawBounds(false);
     rigidShape.setColor([1, 1, 1, 1]);
     this.setPhysicsComponent(rigidShape);
 }

@@ -26,7 +26,7 @@ function Box(cx, cy, texture, lightSet) {
     rigidShape.setMass(1);
     rigidShape.setRestitution(0.3);
     rigidShape.setColor([0, 1, 0, 1]);
-    rigidShape.setDrawBounds(true);
+    rigidShape.setDrawBounds(false);
     this.setPhysicsComponent(rigidShape);
 }
 gEngine.Core.inheritPrototype(Box, GameObject);

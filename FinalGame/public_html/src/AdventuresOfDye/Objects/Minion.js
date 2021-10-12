@@ -58,7 +58,7 @@ function Minion(atX, atY, velocity, movementRange, type, texture, normal, lightS
 
     var rigidShape = new RigidRectangle(this.getXform(), this.kWidth, this.kHeight);
     rigidShape.setMass(1); // ensures no movements!
-    rigidShape.setDrawBounds(true);
+    rigidShape.setDrawBounds(false);
     rigidShape.setColor([0, 0, 1, 1]);
     rigidShape.setAcceleration([0, 0]);
     this.setPhysicsComponent(rigidShape);

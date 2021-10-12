@@ -48,7 +48,7 @@ function Hero(spriteTexture, normalMap, atX, atY, lgtSet) {
     transform.setPosition(this.mDye.getXform().getXPos(), this.mDye.getXform().getYPos() - this.kHeight / 2);
     this.mJumpBox = new RigidRectangle(transform, this.kWidth, 0.25);
     this.mJumpBox.setColor([0, 0, 1, 1]);
-    this.mJumpBox.setDrawBounds(true);
+    this.mJumpBox.setDrawBounds(false);
     //this.setPhysicsComponent(this.mJumpBox);
 
     GameObject.call(this, this.mDye);
@@ -57,7 +57,7 @@ function Hero(spriteTexture, normalMap, atX, atY, lgtSet) {
     r.setMass(0.7);
     r.setRestitution(0);
     r.setColor([0, 1, 0, 1]);
-    r.setDrawBounds(true);
+    r.setDrawBounds(false);
     //r.setAcceleration(-5);
     this.setPhysicsComponent(r);
 
