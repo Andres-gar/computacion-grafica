@@ -4,20 +4,6 @@ Developers:
 - Juan Sebastian Grajales Cruz
 - Andres Felipe Garcia Gaviria
 
-The changes with respect to chapter 11 of the book were as follows:
-- The sprites on the hero
-- Boss sprites
-- Life for the Boss
-- Weapon for the hero
-- Shots with the gun
-- Enemies
-- The Walls
-- The background
-- We add boxes
-- Life for the hero
-- The design of the platforms
-- The secondary background to make the parallax
-
 
 Video Game Description:
 Level 1: Next I will explain the functionality of level 1, in this level first we have to get our weapon to be able to get to the next level, 
