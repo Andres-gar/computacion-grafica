@@ -4,6 +4,14 @@ Developers:
 - Juan Sebastian Grajales Cruz
 - Andres Felipe Garcia Gaviria
 
+Controls:
+L: Next Level
+P: Minimap
+M: Shoot
+A: Left
+D: Right
+Space: Jump
+
 
 Video Game Description:
 Level 1: Next I will explain the functionality of level 1, in this level first we have to get our weapon to be able to get to the next level, 
